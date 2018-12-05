@@ -12,9 +12,13 @@
     <div class="hero-body">
         <div class="container">
             <div class="columns">
+
+                <!-- Begin left section that holds the feature request cards -->
                 <div class="column">
 
+                    <!-- Begin nested columns for responsive layout -->
                     <div class="columns is-multiline">
+                        
                         <div class="column">
                             <div class="card is-narrow">
 
@@ -45,6 +49,7 @@
                                 </footer>
                             </div>
                         </div>
+
                         <div class="column">
                             <div class="card is-narrow">
 
@@ -75,6 +80,7 @@
                                 </footer>
                             </div>
                         </div>
+                        
                         <div class="column">
                             <div class="card is-narrow">
 
@@ -105,12 +111,19 @@
                                 </footer>
                             </div>
                         </div>
+                        
                     </div>
+                    <!-- End of nested columns -->
 
                 </div>
+                <!-- End of left section -->
+
+                <!-- Begin form section for feature requests -->
                 <div class="column">
+
                     <form action="POST" data-bind="submit: save_form_input">
 
+                        <!-- Title field -->
                         <div class="field">
                             <label class="label">Title</label>
                             <div class="control">
@@ -119,6 +132,7 @@
                             </div>
                         </div>
 
+                        <!-- Description field -->
                         <div class="field">
                             <label class="label">Description</label>
                             <div class="control">
@@ -129,6 +143,7 @@
 
                         <div class="columns">
 
+                            <!-- Client name selector -->
                             <div class="column is-half">
                                 <div class="field">
                                     <label class="label">Client</label>
@@ -142,6 +157,7 @@
                                 </div>
                             </div>
 
+                            <!-- Feature request priority selector -->
                             <div class="column is-half">
                                 <div class="field">
                                     <label class="label">Priority</label>
@@ -157,6 +173,7 @@
 
                         </div>
 
+                        <!-- Product area selector -->
                         <div class="columns">
                             <div class="column">
                                 <div class="field">
@@ -171,6 +188,7 @@
                                 </div>
                             </div>
 
+                            <!-- Deadline selector -->
                             <div class="column">
                                 <div class="field">
                                     <label class="label">Deadline</label>
@@ -181,6 +199,7 @@
                             </div>
                         </div>
 
+                        <!-- Submit and reset buttons -->
                         <div class="field is-grouped is-grouped-centered">
                             <div class="control">
                                 <button class="button is-primary" type="submit">Submit</button>
@@ -189,8 +208,11 @@
                                 <button class="button is-danger" type="reset">Cancel</button>
                             </div>
                         </div>
+
                     </form>
                 </div>
+                <!-- End right section for request form -->
+
             </div>
         </div>
     </div>
@@ -201,29 +223,37 @@
 <script>
     function formBindings() {
         let self = this;
-
-        self.title = ko.observable('');
-        self.description = ko.observable('');
-
+        
+        // Set dropdown options
         self.clients = ko.observableArray([
             'Client A',
             'Client B',
             'Client C'
         ]);
-        self.selected_client = ko.observable('');
-
         self.priorities = ko.observableArray([
             1, 2, 3, 4, 5, 6, 7, 8, 9, 10
         ]);
-        self.selected_priority = ko.observable('');
-
         self.areas = ko.observableArray([
             'Billing', 'Claims', 'Policies', 'Reports'
         ]);
-        self.selected_area = ko.observable('');
 
+        // Get form imput data
+        self.title = ko.observable('');
+        self.description = ko.observable('');
+        self.selected_client = ko.observable('');
+        self.selected_priority = ko.observable('');
+        self.selected_area = ko.observable('');
         self.deadline = ko.observable('');
 
+        // DEV
+        self.title = ko.observable('a');
+        self.description = ko.observable('a');
+        self.selected_client = ko.observable('Client A');
+        self.selected_priority = ko.observable(1);
+        self.selected_area = ko.observable('Billing');
+        self.deadline = ko.observable('2018-12-1');
+
+        // amalgamate form inputs for POST body
         self.post_payload = ko.pureComputed(() => {
             return {
                 title: self.title(),
@@ -235,6 +265,7 @@
             }
         }, self);
 
+        // make feature request
         self.save_form_input = () => {
             let request = new XMLHttpRequest();
             let data = ko.toJSON(self.post_payload());
