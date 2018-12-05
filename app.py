@@ -27,7 +27,8 @@ def index():
 def feature_api_endpoint():
 
     if request.method == 'GET':
-        all_features = Feature.query.all()
+        all_features = Feature.query.order_by(
+            Feature.client, Feature.priority).all()
         result = features_schema.dumps(all_features)
         return result
 
