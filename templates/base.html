@@ -21,7 +21,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.5.2/l10n/default.js" integrity="sha256-RafjS0uLoenwqFDVLtG26znSucN2iuzeHlss5dKyDsI="
         crossorigin="anonymous"></script>
     <script>
-        document.getElementById("deadline").flatpickr({});
+        document.getElementById("deadline").flatpickr({
+            "disableMobile" : true
+        });
     </script>
     {% block scripts %}{% endblock %}
 </body>
