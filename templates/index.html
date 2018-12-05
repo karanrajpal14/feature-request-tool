@@ -11,107 +11,36 @@
     <!-- Hero content: will be in the middle -->
     <div class="hero-body">
         <div class="container">
+
             <div class="columns">
 
                 <!-- Begin left section that holds the feature request cards -->
                 <div class="column">
 
                     <!-- Begin nested columns for responsive layout -->
-                    <div class="columns is-multiline">
-                        
-                        <div class="column">
+                    <div class="columns is-multiline" data-bind="foreach: get_all_feature_requests, afterRender: refresh">
+
+                        <div class="column is-half">
                             <div class="card is-narrow">
 
-                                <div class="card-content badge is-badge-large" data-badge="8">
-                                    <p class="title">
-                                        Notch
-                                    </p>
-                                    <p class="subtitle">
-                                        Because everyone's doing it
-                                    </p>
+                                <div class="card-content badge is-badge-large" data-bind="attr: {'data-badge' : priority}">
+                                    <p class="title" data-bind="text: title"></p>
+                                    <p class="subtitle" data-bind="text: description"></p>
                                 </div>
                                 <footer class="card-footer">
                                     <p class="card-footer-item">
-                                        <span>
-                                            Client A
-                                        </span>
+                                        <span data-bind="text: client"></span>
                                     </p>
                                     <p class="card-footer-item">
-                                        <span>
-                                            Policies
-                                        </span>
+                                        <span data-bind="text: product_area"></span>
                                     </p>
                                     <p class="card-footer-item">
-                                        <span>
-                                            17/03/1994
-                                        </span>
+                                        <span data-bind="text: deadline"></span>
                                     </p>
                                 </footer>
                             </div>
                         </div>
 
-                        <div class="column">
-                            <div class="card is-narrow">
-
-                                <div class="card-content badge is-badge-large" data-badge="8">
-                                    <p class="title">
-                                        Notch
-                                    </p>
-                                    <p class="subtitle">
-                                        Because everyone's doing it
-                                    </p>
-                                </div>
-                                <footer class="card-footer">
-                                    <p class="card-footer-item">
-                                        <span>
-                                            Client A
-                                        </span>
-                                    </p>
-                                    <p class="card-footer-item">
-                                        <span>
-                                            Policies
-                                        </span>
-                                    </p>
-                                    <p class="card-footer-item">
-                                        <span>
-                                            17/03/1994
-                                        </span>
-                                    </p>
-                                </footer>
-                            </div>
-                        </div>
-                        
-                        <div class="column">
-                            <div class="card is-narrow">
-
-                                <div class="card-content badge is-badge-large" data-badge="8">
-                                    <p class="title">
-                                        Notch
-                                    </p>
-                                    <p class="subtitle">
-                                        Because everyone's doing it
-                                    </p>
-                                </div>
-                                <footer class="card-footer">
-                                    <p class="card-footer-item">
-                                        <span>
-                                            Client A
-                                        </span>
-                                    </p>
-                                    <p class="card-footer-item">
-                                        <span>
-                                            Policies
-                                        </span>
-                                    </p>
-                                    <p class="card-footer-item">
-                                        <span>
-                                            17/03/1994
-                                        </span>
-                                    </p>
-                                </footer>
-                            </div>
-                        </div>
-                        
                     </div>
                     <!-- End of nested columns -->
 
@@ -207,6 +136,9 @@
                             <div class="control">
                                 <button class="button is-danger" type="reset">Cancel</button>
                             </div>
+                            <div class="control">
+                                <button class="button" data-bind="click: refresh">Refresh</button>
+                            </div>
                         </div>
 
                     </form>
@@ -221,9 +153,9 @@
 {% endblock %}
 {% block scripts %}
 <script>
-    function formBindings() {
+    let featureModel = function formBindings() {
         let self = this;
-        
+
         // Set dropdown options
         self.clients = ko.observableArray([
             'Client A',
@@ -267,15 +199,31 @@
 
         // make feature request
         self.save_form_input = () => {
-            let request = new XMLHttpRequest();
-            let data = ko.toJSON(self.post_payload());
-            request.open('POST', '/api/v1/feature', true);
-            request.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
-            console.log(data);
-            request.send(data);
+            $.ajax('/api/v1/feature', {
+                method: 'POST',
+                contentType: 'application/json',
+                data: ko.toJSON(self.post_payload()),
+
+                success: (data, status) => {
+                    self.refresh();
+                }
+            })
+        }
+
+        self.get_all_feature_requests = ko.observableArray([]);
+
+        self.refresh = () => {
+            $.ajax('/api/v1/feature', {
+                method: 'GET',
+                dataType: 'JSON',
+                success: self.get_all_feature_requests
+            });
         }
 
     }
-    ko.applyBindings(new formBindings());
+
+    let fm = new featureModel();
+    ko.applyBindings(fm);
+    fm.refresh();
 </script>
 {% endblock %}

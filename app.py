@@ -29,8 +29,7 @@ def feature_api_endpoint():
     if request.method == 'GET':
         all_features = Feature.query.all()
         result = features_schema.dumps(all_features)
-        json_response = features_schema.jsonify(all_features)
-        return json_response
+        return result
 
     if request.method == 'POST':
         payload = request.get_json()
