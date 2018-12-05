@@ -3,6 +3,7 @@ import os
 from flask import Flask, render_template, request, jsonify
 from model import db, Feature, FeatureSchema
 import datetime
+from marshmallow import ValidationError
 
 app = Flask(__name__)
 conf = os.environ['APP_SETTINGS']
@@ -35,21 +36,32 @@ def feature_api_endpoint():
     if request.method == 'POST':
         payload = request.get_json()
 
-        title = payload['title']
-        description = payload['description']
-        client = payload['client']
-        priority = payload['priority']
-        product_area = payload['product_area']
-        deadline = datetime.datetime.strptime(
-            payload['deadline'], '%Y-%m-%d').date()
+        if not payload:
+            return 'Feature request is empty. Please fill in all the fields.'
+        
+        try:
+            data = feature_schema.load(payload)
+        except ValidationError as err:
+            return jsonify(err.messages), 422
+        
+        if not data.errors:
+            title = payload['title']
+            description = payload['description']
+            client = payload['client']
+            priority = payload['priority']
+            product_area = payload['product_area']
+            deadline = datetime.datetime.strptime(
+                payload['deadline'], '%Y-%m-%d').date()
 
-        new_feature = Feature(title, description, client,
-                              priority, product_area, deadline)
+            new_feature = Feature(title, description, client,
+                                priority, product_area, deadline)
 
-        db.session.add(new_feature)
-        db.session.commit()
+            db.session.add(new_feature)
+            db.session.commit()
 
-        return "Feature requested. Thank you!"
+            return "Feature requested. Thank you!"
+        else:
+            return jsonify(data.errors)
 
 
 @app.route('/create_db')

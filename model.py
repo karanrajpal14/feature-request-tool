@@ -5,8 +5,9 @@ from flask_marshmallow import Marshmallow
 import os
 import uuid
 
+from marshmallow import fields, Schema, validates, ValidationError
+
 db = SQLAlchemy()
-ma = Marshmallow()
 
 
 class Feature(db.Model):
@@ -29,8 +30,16 @@ class Feature(db.Model):
         self.deadline = deadline
 
 
-class FeatureSchema(ma.Schema):
-    class Meta:
-        model = Feature
-        fields = ['title', 'description', 'client',
-                  'priority', 'product_area', 'deadline']
+class FeatureSchema(Schema):
+    title = fields.String(required=True)
+    description = fields.String(required=True)
+    client = fields.String(required=True)
+    priority = fields.Integer(required=True)
+    product_area = fields.String(required=True)
+    deadline = fields.Date(required=True)
+
+    @validates('priority')
+    def validate_priority(self, priority):
+        if priority < 1 or priority > 10:
+            raise ValidationError('Priority must be between 1 and 10')
+
