@@ -153,7 +153,7 @@
 {% endblock %}
 {% block scripts %}
 <script>
-    let featureModel = function formBindings() {
+    let formModel = function () {
         let self = this;
 
         // Set dropdown options
@@ -222,8 +222,9 @@
 
     }
 
-    let fm = new featureModel();
+    let fm = new formModel();
     ko.applyBindings(fm);
     fm.refresh();
+
 </script>
 {% endblock %}
