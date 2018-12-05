@@ -1,4 +1,197 @@
 {% extends "base.html" %}
 {% block content %}
+<section class="hero is-light is-fullheight">
+    <!-- Hero head: will stick at the top -->
+    <div class="hero-head">
+        <div class="container has-text-centered">
+            <h1 class="title">Feature Request Tool</h1>
+        </div>
+    </div>
 
+    <!-- Hero content: will be in the middle -->
+    <div class="hero-body">
+        <div class="container">
+            <div class="columns">
+                <div class="column">
+
+                    <div class="columns is-multiline">
+                        <div class="column">
+                            <div class="card is-narrow">
+
+                                <div class="card-content badge is-badge-large" data-badge="8">
+                                    <p class="title">
+                                        Notch
+                                    </p>
+                                    <p class="subtitle">
+                                        Because everyone's doing it
+                                    </p>
+                                </div>
+                                <footer class="card-footer">
+                                    <p class="card-footer-item">
+                                        <span>
+                                            Client A
+                                        </span>
+                                    </p>
+                                    <p class="card-footer-item">
+                                        <span>
+                                            Policies
+                                        </span>
+                                    </p>
+                                    <p class="card-footer-item">
+                                        <span>
+                                            17/03/1994
+                                        </span>
+                                    </p>
+                                </footer>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="card is-narrow">
+
+                                <div class="card-content badge is-badge-large" data-badge="8">
+                                    <p class="title">
+                                        Notch
+                                    </p>
+                                    <p class="subtitle">
+                                        Because everyone's doing it
+                                    </p>
+                                </div>
+                                <footer class="card-footer">
+                                    <p class="card-footer-item">
+                                        <span>
+                                            Client A
+                                        </span>
+                                    </p>
+                                    <p class="card-footer-item">
+                                        <span>
+                                            Policies
+                                        </span>
+                                    </p>
+                                    <p class="card-footer-item">
+                                        <span>
+                                            17/03/1994
+                                        </span>
+                                    </p>
+                                </footer>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="card is-narrow">
+
+                                <div class="card-content badge is-badge-large" data-badge="8">
+                                    <p class="title">
+                                        Notch
+                                    </p>
+                                    <p class="subtitle">
+                                        Because everyone's doing it
+                                    </p>
+                                </div>
+                                <footer class="card-footer">
+                                    <p class="card-footer-item">
+                                        <span>
+                                            Client A
+                                        </span>
+                                    </p>
+                                    <p class="card-footer-item">
+                                        <span>
+                                            Policies
+                                        </span>
+                                    </p>
+                                    <p class="card-footer-item">
+                                        <span>
+                                            17/03/1994
+                                        </span>
+                                    </p>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Title</label>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="e.g Add a notch">
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Message</label>
+                        <div class="control">
+                            <textarea class="textarea" placeholder="e.g. Because everyone's doing it"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="columns">
+
+                        <div class="column is-half">
+                            <div class="field">
+                                <label class="label">Client</label>
+                                <div class="control is-expanded">
+                                    <div class="select is-fullwidth">
+                                        <select>
+                                            <option>Select dropdown</option>
+                                            <option>With options</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column is-half">
+                            <div class="field">
+                                <label class="label">Priority</label>
+                                <div class="control is-expanded">
+                                    <div class="select is-fullwidth">
+                                        <select>
+                                            <option>Select dropdown</option>
+                                            <option>With options</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="columns">
+                        <div class="column">
+                            <div class="field">
+                                <label class="label">Product Area</label>
+                                <div class="control is-expanded">
+                                    <div class="select is-fullwidth">
+                                        <select>
+                                            <option>Select dropdown</option>
+                                            <option>With options</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="column">
+                            <div class="field">
+                                <label class="label">Deadline</label>
+                                <div class="control">
+                                    <input class="input flatpickr" type="date" id="deadline">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field is-grouped is-grouped-centered">
+                        <div class="control">
+                            <button class="button is-primary" type="submit">Submit</button>
+                        </div>
+                        <div class="control">
+                            <button class="button is-danger" type="reset">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
 {% endblock %}
