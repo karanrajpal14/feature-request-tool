@@ -42,7 +42,7 @@
 
                 <!-- Begin form section for feature requests -->
                 <div class="column is-one-quarter">
-                    <form action="POST" data-bind="submit: save_form_input">
+                    <form action="POST" data-bind="submit: save_form_input, validationOptions: {insertMessages: false}">
                         <!-- Title field -->
                         <div class="field">
                             <label class="label">Title</label>
@@ -50,6 +50,7 @@
                                 <input data-bind="value: title" class="input is-medium" type="text" placeholder="e.g Add a notch"
                                     id="title" />
                             </div>
+                            <p class="help is-danger" data-bind="validationMessage: title"></p>
                         </div>
 
                         <!-- Description field -->
@@ -59,6 +60,7 @@
                                 <textarea data-bind="value: description" class="textarea is-medium" placeholder="e.g. Because everyone's doing it"
                                     id="description"></textarea>
                             </div>
+                            <p class="help is-danger" data-bind="validationMessage: description"></p>
                         </div>
 
                         <div class="columns">
@@ -73,6 +75,7 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <p class="help is-danger" data-bind="validationMessage: selected_client"></p>
                                 </div>
                             </div>
 
@@ -87,6 +90,7 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <p class="help is-danger" data-bind="validationMessage: selected_priority"></p>
                                 </div>
                             </div>
                         </div>
@@ -103,6 +107,7 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <p class="help is-danger" data-bind="validationMessage: selected_area"></p>
                                 </div>
                             </div>
 
@@ -114,6 +119,7 @@
                                         <input data-bind="value: deadline" class="input flatpickr is-medium" type="date"
                                             id="deadline" />
                                     </div>
+                                    <p class="help is-danger" data-bind="validationMessage: deadline"></p>
                                 </div>
                             </div>
                         </div>
@@ -130,6 +136,16 @@
                                 <button class="button" data-bind="click: refresh">Refresh</button>
                             </div>
                         </div>
+                        <article data-bind="visible: request_successful" class="feature-request message is-success">
+                            <div class="message-body">
+                                Feature request added. Thank you!
+                            </div>
+                        </article>
+                        <article data-bind="visible: request_failed" class="feature-request message is-danger">
+                            <div class="message-body">
+                                Oops! The feature request failed. Please try again later.
+                            </div>
+                        </article>
                     </form>
                 </div>
                 <!-- End right section for request form -->
