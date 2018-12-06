@@ -20,26 +20,21 @@
                     <!-- Begin nested columns for responsive layout -->
                     <div class="columns is-multiline" data-bind="foreach: get_all_feature_requests, afterRender: refresh">
 
-                        <div class="column is-half">
-                            <div class="card is-narrow">
-
-                                <div class="card-content badge is-badge-large" data-bind="attr: {'data-badge' : priority}">
-                                    <p class="title" data-bind="text: title"></p>
-                                    <p class="subtitle" data-bind="text: description"></p>
+                            <div class="column is-narrow">
+                                    <div class="box">
+                                            <article class="media">
+                                              <div class="media-content">
+                                                <div class="content">
+                                                  <p class="title" data-bind="text: title"></p>
+                                                    <p class="subtitle" data-bind="text: description"></p>
+                                                  <p data-bind="text: client"></p>
+                                                  <p data-bind="text: product_area"></p>
+                                                  <p data-bind="text: deadline"></p>
+                                                </div>
+                                              </div>
+                                            </article>
+                                          </div>
                                 </div>
-                                <footer class="card-footer">
-                                    <p class="card-footer-item">
-                                        <span data-bind="text: client"></span>
-                                    </p>
-                                    <p class="card-footer-item">
-                                        <span data-bind="text: product_area"></span>
-                                    </p>
-                                    <p class="card-footer-item">
-                                        <span data-bind="text: deadline"></span>
-                                    </p>
-                                </footer>
-                            </div>
-                        </div>
 
                     </div>
                     <!-- End of nested columns -->
