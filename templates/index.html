@@ -11,48 +11,44 @@
     <!-- Hero content: will be in the middle -->
     <div class="hero-body">
         <div class="container">
-
             <div class="columns">
-
                 <!-- Begin left section that holds the feature request cards -->
                 <div class="column">
-
                     <!-- Begin nested columns for responsive layout -->
-                    <div class="columns is-multiline" data-bind="foreach: get_all_feature_requests, afterRender: refresh">
-
-                            <div class="column is-narrow">
-                                    <div class="box">
-                                            <article class="media">
-                                              <div class="media-content">
-                                                <div class="content">
-                                                  <p class="title" data-bind="text: title"></p>
-                                                    <p class="subtitle" data-bind="text: description"></p>
-                                                  <p data-bind="text: client"></p>
-                                                  <p data-bind="text: product_area"></p>
-                                                  <p data-bind="text: deadline"></p>
-                                                </div>
-                                              </div>
-                                            </article>
-                                          </div>
+                    <div class="grid" data-bind="foreach: get_all_feature_requests">
+                        <div class="box has-ribbon" data-bind="attr: {'id': id}" id="ebeb93bc-f535-4a5f-9164-4c2fc645659f">
+                            <div class="ribbon is-dark is-small" data-bind="text: priority"></div>
+                            <p class="title" id="feature_title" data-bind="text: title"></p>
+                            <p class="subtitle" id="feature_description" data-bind="text: description"></p>
+                            <nav class="level">
+                                <div class="level-item">
+                                    <p data-bind="text: client"></p>
                                 </div>
-
+                                <div class="level-item">
+                                    <p data-bind="text: product_area"></p>
+                                </div>
+                                <div class="level-item">
+                                    <p data-bind="text: deadline"></p>
+                                </div>
+                            </nav>
+                            <div class="buttons has-addons is-centered">
+                                <button class="button is-small is-rounded is-danger is-outlined" data-bind="click: $parent.delete">Delete</button>
+                            </div>
+                        </div>
                     </div>
                     <!-- End of nested columns -->
-
                 </div>
                 <!-- End of left section -->
 
                 <!-- Begin form section for feature requests -->
-                <div class="column">
-
+                <div class="column is-one-quarter">
                     <form action="POST" data-bind="submit: save_form_input">
-
                         <!-- Title field -->
                         <div class="field">
                             <label class="label">Title</label>
                             <div class="control">
                                 <input data-bind="value: title" class="input is-medium" type="text" placeholder="e.g Add a notch"
-                                    id="title">
+                                    id="title" />
                             </div>
                         </div>
 
@@ -66,7 +62,6 @@
                         </div>
 
                         <div class="columns">
-
                             <!-- Client name selector -->
                             <div class="column is-half">
                                 <div class="field">
@@ -94,7 +89,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
                         <!-- Product area selector -->
@@ -118,7 +112,7 @@
                                     <label class="label">Deadline</label>
                                     <div class="control">
                                         <input data-bind="value: deadline" class="input flatpickr is-medium" type="date"
-                                            id="deadline">
+                                            id="deadline" />
                                     </div>
                                 </div>
                             </div>
@@ -136,15 +130,12 @@
                                 <button class="button" data-bind="click: refresh">Refresh</button>
                             </div>
                         </div>
-
                     </form>
                 </div>
                 <!-- End right section for request form -->
-
             </div>
         </div>
     </div>
-
 </section>
 {% endblock %}
 {% block scripts %}

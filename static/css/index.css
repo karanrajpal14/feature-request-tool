@@ -1,0 +1,17 @@
+.grid {
+  display: -ms-grid;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-column-gap: 5%;
+}
+
+.grid .ribbon {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.grid .box {
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+}
