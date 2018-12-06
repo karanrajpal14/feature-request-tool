@@ -5,6 +5,7 @@ from model import db, Feature, FeatureSchema
 import datetime
 from dotenv import load_dotenv
 from marshmallow import ValidationError
+from sqlalchemy.orm.exc import UnmappedInstanceError
 
 load_dotenv()
 app = Flask(__name__)
@@ -27,7 +28,8 @@ def index():
 
 
 @app.route('/api/v1/feature', methods=['GET', 'POST'])
-def feature_api_endpoint():
+@app.route('/api/v1/feature/<id>', methods=['DELETE'])
+def feature_api_endpoint(id=None):
 
     if request.method == 'GET':
         all_features = Feature.query.order_by(
@@ -40,12 +42,12 @@ def feature_api_endpoint():
 
         if not payload:
             return 'Feature request is empty. Please fill in all the fields.'
-        
+
         try:
             data = feature_schema.load(payload)
         except ValidationError as err:
             return jsonify(err.messages), 422
-        
+
         if not data.errors:
             title = payload['title']
             description = payload['description']
@@ -66,7 +68,16 @@ def feature_api_endpoint():
             return jsonify(data.errors)
 
 
-@app.route('/create_db')
+    if request.method == 'DELETE':
+        feature = Feature.query.get(id)
+        try:
+            db.session.delete(feature)
+            db.session.commit()
+        except UnmappedInstanceError:
+            return 'Feature ID does not exist', 422
+        return 'Deleted feature successfully'
+
+@app.route('/create_db', methods=['GET'])
 def create_db():
     app_context = Flask(__name__)
     app_context.config.from_object(conf)

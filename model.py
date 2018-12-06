@@ -31,6 +31,7 @@ class Feature(db.Model):
 
 
 class FeatureSchema(Schema):
+    id = fields.UUID()
     title = fields.String(required=True)
     description = fields.String(required=True)
     client = fields.String(required=True)

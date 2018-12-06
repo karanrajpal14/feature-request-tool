@@ -66,6 +66,21 @@ let formModel = function() {
 			success: self.get_all_feature_requests
 		});
 	};
+
+	self.delete = (element) => {
+		feature_id = element.id;
+		self.refresh();
+		$.ajax(`/api/v1/feature/${feature_id}`, {
+			method: 'DELETE',
+			dataType: 'text',
+			success: function() {
+				$(`#${feature_id}`).fadeOut(700, () => {
+					$(this).remove();
+					self.refresh();
+				});
+			}
+		});
+	};
 };
 
 let fm = new formModel();
