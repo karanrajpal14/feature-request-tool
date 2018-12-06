@@ -3,10 +3,12 @@ import os
 from flask import Flask, render_template, request, jsonify
 from model import db, Feature, FeatureSchema
 import datetime
+from dotenv import load_dotenv
 from marshmallow import ValidationError
 
+load_dotenv()
 app = Flask(__name__)
-conf = os.environ['APP_SETTINGS']
+conf = os.getenv('APP_SETTINGS')
 app.config.from_object(conf)
 db.init_app(app)
 
