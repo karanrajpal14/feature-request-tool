@@ -9,6 +9,8 @@ from marshmallow import fields, Schema, validates, ValidationError
 
 db = SQLAlchemy()
 
+PRIORITY_MIN = 1
+PRIORITY_MAX = 10
 
 class Feature(db.Model):
     __tablename__ = 'feature'
@@ -41,6 +43,6 @@ class FeatureSchema(Schema):
 
     @validates('priority')
     def validate_priority(self, priority):
-        if priority < 1 or priority > 10:
+        if priority < PRIORITY_MIN or priority > PRIORITY_MAX:
             raise ValidationError('Priority must be between 1 and 10')
 

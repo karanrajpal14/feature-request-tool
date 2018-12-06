@@ -1,7 +1,7 @@
 import json
 import os
 from flask import Flask, render_template, request, jsonify
-from model import db, Feature, FeatureSchema
+from model import db, Feature, FeatureSchema, PRIORITY_MIN, PRIORITY_MAX
 import datetime
 from dotenv import load_dotenv
 from marshmallow import ValidationError
@@ -84,6 +84,13 @@ def create_db():
     db.init_app(app_context)
     db.create_all(app=app_context)
     return 'DB Created'
+
+@app.route('/filter_priorities/<client>', methods=['GET'])
+def filter_priorities(client):
+    fetch_current_priorities = Feature.query.with_entities(Feature.priority).filter_by(client=client).all()
+    exclude_priorities= set(list(sum(fetch_current_priorities, ())))
+    include_priorities = list(set(range(PRIORITY_MIN, PRIORITY_MAX + 1)) - exclude_priorities)
+    return jsonify(include_priorities)
 
 
 if __name__ == '__main__':

@@ -8,7 +8,7 @@ let formModel = function() {
 
 	// Set dropdown options
 	self.clients = ko.observableArray(['Client A', 'Client B', 'Client C']);
-	self.priorities = ko.observableArray([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+	self.priorities = ko.observableArray(undefined);
 	self.areas = ko.observableArray([
 		'Billing',
 		'Claims',
@@ -19,18 +19,27 @@ let formModel = function() {
 	// Get form imput data
 	self.title = ko.observable('');
 	self.description = ko.observable('');
-	self.selected_client = ko.observable('');
-	self.selected_priority = ko.observable('');
+	self.selected_client = ko.observable(undefined);
+	self.selected_priority = ko.observable(undefined);
 	self.selected_area = ko.observable('');
 	self.deadline = ko.observable('');
 
-	// DEV
-	self.title = ko.observable('OnePlus 9');
-	self.description = ko.observable('One');
-	self.selected_client = ko.observable('Client A');
-	self.selected_priority = ko.observable(1);
-	self.selected_area = ko.observable('Billing');
-	self.deadline = ko.observable('2018-12-1');
+	self.selected_client.subscribe(newClient => {
+		self.fetch_priorities(newClient);
+	});
+
+	self.fetch_priorities = client => {
+		if (client != undefined) {
+			$.ajax(`/filter_priorities/${client}`, {
+				method: 'GET',
+				dataType: 'JSON',
+				success: function(data) {
+					self.priorities(data);
+					self.selected_priority(data[0]);
+				}
+			});
+		}
+	};
 
 	// amalgamate form inputs for POST body
 	self.post_payload = ko.pureComputed(() => {
@@ -67,7 +76,7 @@ let formModel = function() {
 		});
 	};
 
-	self.delete = (element) => {
+	self.delete = element => {
 		feature_id = element.id;
 		self.refresh();
 		$.ajax(`/api/v1/feature/${feature_id}`, {
