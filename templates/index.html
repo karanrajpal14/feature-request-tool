@@ -51,7 +51,7 @@
                         <div class="field">
                             <label class="label">Title</label>
                             <div class="control">
-                                <input data-bind="value: title" class="input" type="text" placeholder="e.g Add a notch"
+                                <input data-bind="value: title" class="input is-medium" type="text" placeholder="e.g Add a notch"
                                     id="title">
                             </div>
                         </div>
@@ -60,7 +60,7 @@
                         <div class="field">
                             <label class="label">Description</label>
                             <div class="control">
-                                <textarea data-bind="value: description" class="textarea" placeholder="e.g. Because everyone's doing it"
+                                <textarea data-bind="value: description" class="textarea is-medium" placeholder="e.g. Because everyone's doing it"
                                     id="description"></textarea>
                             </div>
                         </div>
@@ -72,7 +72,7 @@
                                 <div class="field">
                                     <label class="label">Client</label>
                                     <div class="control is-expanded">
-                                        <div class="select is-fullwidth">
+                                        <div class="select is-fullwidth is-medium">
                                             <select data-bind="options: clients, value: selected_client, optionsCaption: 'Select Client'"
                                                 id="client">
                                             </select>
@@ -86,7 +86,7 @@
                                 <div class="field">
                                     <label class="label">Priority</label>
                                     <div class="control is-expanded">
-                                        <div class="select is-fullwidth">
+                                        <div class="select is-fullwidth is-medium">
                                             <select data-bind="options: priorities, value: selected_priority, optionsCaption: 'Select Priority'"
                                                 id="priority">
                                             </select>
@@ -103,7 +103,7 @@
                                 <div class="field">
                                     <label class="label">Product Area</label>
                                     <div class="control is-expanded">
-                                        <div class="select is-fullwidth">
+                                        <div class="select is-fullwidth is-medium">
                                             <select data-bind="options: areas, value: selected_area, optionsCaption: 'Select Product Area'"
                                                 id="product_area">
                                             </select>
@@ -117,7 +117,8 @@
                                 <div class="field">
                                     <label class="label">Deadline</label>
                                     <div class="control">
-                                        <input data-bind="value: deadline" class="input flatpickr" type="date" id="deadline">
+                                        <input data-bind="value: deadline" class="input flatpickr is-medium" type="date"
+                                            id="deadline">
                                     </div>
                                 </div>
                             </div>
@@ -147,79 +148,5 @@
 </section>
 {% endblock %}
 {% block scripts %}
-<script>
-    let formModel = function () {
-        let self = this;
-
-        // Set dropdown options
-        self.clients = ko.observableArray([
-            'Client A',
-            'Client B',
-            'Client C'
-        ]);
-        self.priorities = ko.observableArray([
-            1, 2, 3, 4, 5, 6, 7, 8, 9, 10
-        ]);
-        self.areas = ko.observableArray([
-            'Billing', 'Claims', 'Policies', 'Reports'
-        ]);
-
-        // Get form imput data
-        self.title = ko.observable('');
-        self.description = ko.observable('');
-        self.selected_client = ko.observable('');
-        self.selected_priority = ko.observable('');
-        self.selected_area = ko.observable('');
-        self.deadline = ko.observable('');
-
-        // DEV
-        self.title = ko.observable('a');
-        self.description = ko.observable('a');
-        self.selected_client = ko.observable('Client A');
-        self.selected_priority = ko.observable(1);
-        self.selected_area = ko.observable('Billing');
-        self.deadline = ko.observable('2018-12-1');
-
-        // amalgamate form inputs for POST body
-        self.post_payload = ko.pureComputed(() => {
-            return {
-                title: self.title(),
-                description: self.description(),
-                client: self.selected_client(),
-                priority: self.selected_priority(),
-                product_area: self.selected_area(),
-                deadline: self.deadline()
-            }
-        }, self);
-
-        // make feature request
-        self.save_form_input = () => {
-            $.ajax('/api/v1/feature', {
-                method: 'POST',
-                contentType: 'application/json',
-                data: ko.toJSON(self.post_payload()),
-
-                success: (data, status) => {
-                    self.refresh();
-                }
-            })
-        }
-
-        self.get_all_feature_requests = ko.observableArray([]);
-
-        self.refresh = () => {
-            $.ajax('/api/v1/feature', {
-                method: 'GET',
-                dataType: 'JSON',
-                success: self.get_all_feature_requests
-            });
-        }
-
-    }
-
-    let fm = new formModel();
-    ko.applyBindings(fm);
-    fm.refresh();
-
-</script>
+<script src="static/js/index.js"></script>
 {% endblock %}
