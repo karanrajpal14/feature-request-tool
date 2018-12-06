@@ -1,25 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
 <section class="hero is-light is-fullheight">
-    <!-- Hero head: will stick at the top -->
-    <div class="hero-head">
+    <!-- begin header -->
+    <header class="hero-head">
         <div class="container has-text-centered">
             <h1 class="title">Feature Request Tool</h1>
         </div>
-    </div>
-
-    <!-- Hero content: will be in the middle -->
+    </header>
+    <!-- end header -->
+    <!-- begin body -->
     <div class="hero-body">
+        <!-- begin container -->
         <div class="container">
             <div class="columns">
                 <!-- Begin left section that holds the feature request cards -->
                 <div class="column">
-                    <!-- Begin nested columns for responsive layout -->
+                    <!-- Begin feature cards grid -->
                     <div class="grid" data-bind="foreach: get_all_feature_requests">
+                        <!-- begin card -->
                         <div class="box has-ribbon" data-bind="attr: {'id': id}" id="ebeb93bc-f535-4a5f-9164-4c2fc645659f">
                             <div class="ribbon is-dark is-small" data-bind="text: priority"></div>
                             <p class="title" id="feature_title" data-bind="text: title"></p>
                             <p class="subtitle" id="feature_description" data-bind="text: description"></p>
+                            <!-- begin level for client, product area and deadline values -->
                             <nav class="level">
                                 <div class="level-item">
                                     <p data-bind="text: client"></p>
@@ -31,46 +34,48 @@
                                     <p data-bind="text: deadline"></p>
                                 </div>
                             </nav>
+                            <!-- end level -->
+                            <!-- begin delete button -->
                             <div class="buttons has-addons is-centered">
                                 <button class="button is-small is-rounded is-danger is-outlined" data-bind="click: $parent.delete">Delete</button>
                             </div>
+                            <!-- end delete button -->
                         </div>
+                        <!-- end card -->
                     </div>
-                    <!-- End of nested columns -->
+                    <!-- End feature cards grid -->
                 </div>
                 <!-- End of left section -->
-
                 <!-- Begin form section for feature requests -->
                 <div class="column is-one-quarter">
                     <form action="POST" data-bind="submit: save_form_input, validationOptions: {insertMessages: false}">
-                        <!-- Title field -->
+                        <!-- begin title field -->
                         <div class="field">
                             <label class="label">Title</label>
                             <div class="control">
-                                <input data-bind="value: title" class="input is-medium" type="text" placeholder="e.g Add a notch"
-                                    id="title" />
+                                <input data-bind="value: title" class="input is-medium" type="text" id="title" />
                             </div>
                             <p class="help is-danger" data-bind="validationMessage: title"></p>
                         </div>
-
-                        <!-- Description field -->
+                        <!-- end title field -->
+                        <!-- begin description field -->
                         <div class="field">
                             <label class="label">Description</label>
                             <div class="control">
-                                <textarea data-bind="value: description" class="textarea is-medium" placeholder="e.g. Because everyone's doing it"
-                                    id="description"></textarea>
+                                <textarea data-bind="value: description" class="textarea is-medium" id="description"></textarea>
                             </div>
                             <p class="help is-danger" data-bind="validationMessage: description"></p>
                         </div>
-
+                        <!-- end description field -->
+                        <!-- begin client name and priority columns -->
                         <div class="columns">
-                            <!-- Client name selector -->
+                            <!-- begin client name selector -->
                             <div class="column is-half">
                                 <div class="field">
                                     <label class="label">Client</label>
                                     <div class="control is-expanded">
                                         <div class="select is-fullwidth is-medium">
-                                            <select data-bind="options: clients, value: selected_client, optionsCaption: 'Select Client'"
+                                            <select data-bind="options: clients, value: selected_client, optionsCaption: 'Select'"
                                                 id="client">
                                             </select>
                                         </div>
@@ -78,14 +83,14 @@
                                     <p class="help is-danger" data-bind="validationMessage: selected_client"></p>
                                 </div>
                             </div>
-
-                            <!-- Feature request priority selector -->
+                            <!-- end client name selector -->
+                            <!-- begin priority selector -->
                             <div class="column is-half">
                                 <div class="field">
                                     <label class="label">Priority</label>
                                     <div class="control is-expanded">
                                         <div class="select is-fullwidth is-medium">
-                                            <select data-bind="options: priorities, value: selected_priority, optionsCaption: 'Select Priority'"
+                                            <select data-bind="options: priorities, value: selected_priority, optionsCaption: 'Select'"
                                                 id="priority">
                                             </select>
                                         </div>
@@ -93,16 +98,18 @@
                                     <p class="help is-danger" data-bind="validationMessage: selected_priority"></p>
                                 </div>
                             </div>
+                            <!-- end priority selector -->
                         </div>
-
-                        <!-- Product area selector -->
+                        <!-- end client name and priority columns -->
+                        <!-- begin product area and deadline columns -->
                         <div class="columns">
+                            <!-- begin product area selector -->
                             <div class="column">
                                 <div class="field">
                                     <label class="label">Product Area</label>
                                     <div class="control is-expanded">
                                         <div class="select is-fullwidth is-medium">
-                                            <select data-bind="options: areas, value: selected_area, optionsCaption: 'Select Product Area'"
+                                            <select data-bind="options: areas, value: selected_area, optionsCaption: 'Select'"
                                                 id="product_area">
                                             </select>
                                         </div>
@@ -110,8 +117,8 @@
                                     <p class="help is-danger" data-bind="validationMessage: selected_area"></p>
                                 </div>
                             </div>
-
-                            <!-- Deadline selector -->
+                            <!-- end product area selector -->
+                            <!-- begin deadline selector -->
                             <div class="column">
                                 <div class="field">
                                     <label class="label">Deadline</label>
@@ -122,9 +129,10 @@
                                     <p class="help is-danger" data-bind="validationMessage: deadline"></p>
                                 </div>
                             </div>
+                            <!-- end deadline selector -->
                         </div>
-
-                        <!-- Submit and reset buttons -->
+                        <!-- end product area and deadline columns -->
+                        <!-- begin submit and reset buttons -->
                         <div class="field is-grouped is-grouped-centered">
                             <div class="control">
                                 <button class="button is-primary" type="submit">Submit</button>
@@ -132,10 +140,9 @@
                             <div class="control">
                                 <button class="button is-danger" type="reset">Cancel</button>
                             </div>
-                            <div class="control">
-                                <button class="button" data-bind="click: refresh">Refresh</button>
-                            </div>
                         </div>
+                        <!-- end submit and reset buttons -->
+                        <!-- begin form submit messages -->
                         <article data-bind="visible: request_successful" class="feature-request message is-success">
                             <div class="message-body">
                                 Feature request added. Thank you!
@@ -146,14 +153,14 @@
                                 Oops! The feature request failed. Please try again later.
                             </div>
                         </article>
+                        <!-- end form submit messages -->
                     </form>
                 </div>
-                <!-- End right section for request form -->
+                <!-- end right section for request form -->
             </div>
         </div>
+        <!-- end container -->
     </div>
+    <!-- end body -->
 </section>
-{% endblock %}
-{% block scripts %}
-<script src="static/js/index.js"></script>
 {% endblock %}

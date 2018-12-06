@@ -12,8 +12,9 @@ db = SQLAlchemy()
 PRIORITY_MIN = 1
 PRIORITY_MAX = 10
 
+
 class Feature(db.Model):
-    __tablename__ = 'feature'
+    __tablename__ = "feature"
 
     id = db.Column(UUIDType, primary_key=True, default=uuid.uuid4)
     title = db.Column(db.String, nullable=False)
@@ -41,8 +42,8 @@ class FeatureSchema(Schema):
     product_area = fields.String(required=True)
     deadline = fields.Date(required=True)
 
-    @validates('priority')
+    @validates("priority")
     def validate_priority(self, priority):
         if priority < PRIORITY_MIN or priority > PRIORITY_MAX:
-            raise ValidationError('Priority must be between 1 and 10')
+            raise ValidationError("Priority must be between 1 and 10")
 

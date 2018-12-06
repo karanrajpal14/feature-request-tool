@@ -1,9 +1,4 @@
-var FeatureModel = function(data) {
-	var self = this;
-	ko.mapping.fromJS(data, {}, self);
-};
-
-let formModel = function() {
+let formModel = function () {
 	let self = this;
 
 	// Set dropdown options
@@ -35,7 +30,7 @@ let formModel = function() {
 			$.ajax(`/filter_priorities/${client}`, {
 				method: 'GET',
 				dataType: 'JSON',
-				success: function(data) {
+				success: data => {
 					self.priorities(data);
 					self.selected_priority(data[0]);
 				}
@@ -59,7 +54,7 @@ let formModel = function() {
 			self.request_failed(null);
 		} else {
 			self.request_failed(true);
-			setTimeout(function () {
+			setTimeout(() => {
 				self.request_failed(null);
 			}, 4000);
 		}
@@ -74,7 +69,7 @@ let formModel = function() {
 		deadline: self.deadline
 	})
 
-	self.validte_request = function () {
+	self.validte_request = () => {
 		form_items = {
 			title: self.title.isValid(),
 			description: self.description.isValid(),
@@ -84,10 +79,8 @@ let formModel = function() {
 			deadline: self.deadline.isValid()
 		}
 		for (item in form_items) {
-			if (form_items.hasOwnProperty(item)) {
-				if (!form_items[item]) {
-					return false;
-				}
+			if (form_items.hasOwnProperty(item) && (!form_items[item])) {
+				return false;
 			}
 		}
 		return true;
@@ -113,7 +106,7 @@ let formModel = function() {
 				contentType: 'application/json',
 				data: ko.toJSON(self.post_payload()),
 
-				success: (data, status) => {
+				success: () => {
 					self.refresh();
 					self.title(null);
 					self.description(null);
@@ -157,7 +150,7 @@ let formModel = function() {
 		$.ajax(`/api/v1/feature/${feature_id}`, {
 			method: 'DELETE',
 			dataType: 'text',
-			success: function() {
+			success: () => {
 				$(`#${feature_id}`).fadeOut(700, () => {
 					$(this).remove();
 					self.refresh();
@@ -170,3 +163,9 @@ let formModel = function() {
 let fm = new formModel();
 ko.applyBindings(fm);
 fm.refresh();
+
+flatpickr('#deadline', {
+	"disableMobile": true,
+	"minDate": "today",
+	"defaultDate": "today"
+});

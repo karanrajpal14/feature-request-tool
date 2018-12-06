@@ -6,17 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
+    <!-- bulma css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" integrity="sha256-2pUeJf+y0ltRPSbKOeJh09ipQFYxUdct5nTY6GAXswA="
         crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-ribbon@0.1.1/dist/css/bulma-ribbon.min.css" integrity="sha256-G6JPPil3j+OtMSMSf1eyc5xODZ0yp7dgfGAVVneVJA0="
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-ribbon@0.1.1/dist/css/bulma-ribbon.min.css"
+        integrity="sha256-G6JPPil3j+OtMSMSf1eyc5xODZ0yp7dgfGAVVneVJA0=" crossorigin="anonymous">
+
+    <!-- flatpickr -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.5.2/flatpickr.min.css" integrity="sha256-TV6wP5ef/UY4bNFdA1h2i8ASc9HHcnl8ufwk94/HP4M="
         crossorigin="anonymous" />
-    <link rel="stylesheet" href="static/css/index.css">
+
+    <!-- custom styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 
 <body>
-    {% block content %}{% endblock %}
+
+    {% block content %}
+    {% endblock %}
+
+    <!-- begin footer -->
     <footer class="footer has-background-dark is-small">
         <div class="content has-text-centered has-text-light">
             <p>
@@ -24,21 +33,25 @@
             </p>
         </div>
     </footer>
+    <!-- end footer -->
+
+    <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
+
+    <!-- knockout js scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js" integrity="sha256-owX7sroiO/O1a7h3a4X29A1g3QgqdNvijRQ7V5TH45M="
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout-validation/2.0.3/knockout.validation.min.js"></script>
+
+    <!-- flatpickr scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.5.2/flatpickr.min.js" integrity="sha256-44TeE1bzEP4BfpL6Wb05CVgLDKN6OzOAI79XNMPR4Bs="
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.5.2/l10n/default.js" integrity="sha256-RafjS0uLoenwqFDVLtG26znSucN2iuzeHlss5dKyDsI="
         crossorigin="anonymous"></script>
-    <script>
-        flatpickr('#deadline', {
-            "disableMobile": true
-        });
-    </script>
-    {% block scripts %}{% endblock %}
+
+    <!-- custom scripts -->
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 </body>
 
 </html>
