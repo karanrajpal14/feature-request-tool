@@ -1,3 +1,19 @@
+.hero-head {
+  padding-top: 1.5rem;
+}
+
+footer {
+  padding-bottom: 3rem !important;
+}
+
+footer a {
+  color: antiquewhite;
+}
+
+footer a:hover {
+  color: darkgray;
+}
+
 .grid {
   display: -ms-grid;
   display: grid;
