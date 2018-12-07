@@ -7,12 +7,18 @@ from dotenv import load_dotenv
 from marshmallow import ValidationError
 from sqlalchemy.orm.exc import UnmappedInstanceError
 
-# Setting App State
 load_dotenv()
-app = Flask(__name__)
-conf = os.getenv("APP_SETTINGS")
-app.config.from_object(conf)
-db.init_app(app)
+
+# Setting App State
+def create_app():
+    app = Flask(__name__)
+    conf = os.getenv("APP_SETTINGS")
+    app.config.from_object(conf)
+    db.init_app(app)
+    return app
+
+
+app = create_app()
 
 # Load schema for validation
 feature_schema = FeatureSchema()
@@ -90,15 +96,6 @@ def feature_api_endpoint(id=None):
 
 """ Helper Methods """
 
-# Route to create db
-@app.route("/create_db", methods=["GET"])
-def create_db():
-    app_context = Flask(__name__)
-    app_context.config.from_object(conf)
-    db.init_app(app_context)
-    db.create_all(app=app_context)
-    addMockData()
-    return "DB Created"
 
 
 def addMockData():

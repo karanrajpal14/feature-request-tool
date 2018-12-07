@@ -2,3 +2,4 @@
 .env
 .vscode
 *.sqlite
+migrations/versions/*
