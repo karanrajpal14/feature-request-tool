@@ -1,5 +1,15 @@
+# Directories
 **/__pycache__/**
-.env
+**/migrations/versions/**
+.vagrant
 .vscode
+
+**/frt_env/**
+**/venv/**
+
+# Files
+.env
 *.sqlite
-migrations/versions/*
+*.log
+*.retry
+*.pyc
