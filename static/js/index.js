@@ -17,7 +17,7 @@ let formModel = function () {
 	self.selected_client = ko.observable(undefined).extend({ required: true });
 	self.selected_priority = ko.observable(undefined).extend({ required: true, number: true });
 	self.selected_area = ko.observable(undefined).extend({ required: true });
-	self.deadline = ko.observable(undefined).extend({ required: true });
+	self.deadline = ko.observable(getTodaysDate()).extend({ required: true });
 	self.request_successful = ko.observable(null);
 	self.request_failed = ko.observable(null);
 
@@ -159,6 +159,11 @@ let formModel = function () {
 		});
 	};
 };
+
+getTodaysDate = () => {
+	let today = new Date()
+	return `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`
+}
 
 let fm = new formModel();
 ko.applyBindings(fm);
