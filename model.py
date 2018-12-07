@@ -17,11 +17,11 @@ class Feature(db.Model):
     __tablename__ = "feature"
 
     id = db.Column(UUIDType, primary_key=True, default=uuid.uuid4)
-    title = db.Column(db.String, nullable=False)
-    description = db.Column(db.String, nullable=False)
-    client = db.Column(db.String, nullable=False)
+    title = db.Column(db.String(64), nullable=False)
+    description = db.Column(db.String(256), nullable=False)
+    client = db.Column(db.String(8), nullable=False)
     priority = db.Column(db.Integer, nullable=False)
-    product_area = db.Column(db.String, nullable=False)
+    product_area = db.Column(db.String(12), nullable=False)
     deadline = db.Column(db.Date, nullable=False)
 
     def __init__(self, title, description, client, priority, product_area, deadline):

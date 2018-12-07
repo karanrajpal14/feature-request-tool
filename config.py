@@ -2,7 +2,6 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-basedir = os.path.abspath(os.path.dirname(__file__))
 
 # Base config
 class Config(object):
@@ -12,9 +11,7 @@ class Config(object):
     CSRF_ENABLED = True
     SECRET_KEY = os.getenv("SECRET_KEY")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(
-        basedir, "feature_requests.sqlite"
-    )
+    SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
     SQLALCHEMY_ECHO = False
 
 
