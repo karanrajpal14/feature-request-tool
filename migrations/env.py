@@ -3,6 +3,7 @@ from alembic import context
 from sqlalchemy import engine_from_config, pool
 from logging.config import fileConfig
 import logging
+import sqlalchemy_utils
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -28,6 +29,19 @@ target_metadata = current_app.extensions["migrate"].db.metadata
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
+
+
+def render_item(type_, obj, autogen_context):
+    """Apply custom rendering for selected items."""
+
+    if type_ == "type" and isinstance(obj, sqlalchemy_utils.types.uuid.UUIDType):
+        # add import for this type
+        autogen_context.imports.add("import sqlalchemy_utils")
+        autogen_context.imports.add("import uuid")
+        return "sqlalchemy_utils.types.uuid.UUIDType(), default=uuid.uuid4"
+
+    # default rendering for other objects
+    return False
 
 
 def run_migrations_offline():
@@ -77,6 +91,7 @@ def run_migrations_online():
     context.configure(
         connection=connection,
         target_metadata=target_metadata,
+        render_item=render_item,
         process_revision_directives=process_revision_directives,
         **current_app.extensions["migrate"].configure_args
     )
