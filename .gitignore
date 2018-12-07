@@ -1,6 +1,6 @@
 # Directories
 **/__pycache__/**
-**/migrations/versions/**
+**/migrations/versions/*_.py
 .vagrant
 .vscode
 
