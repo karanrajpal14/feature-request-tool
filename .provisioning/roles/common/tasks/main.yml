@@ -1,0 +1,23 @@
+---
+
+- name: Ensure bash, OpenSSl, and libssl are the latest versions
+  apt:
+    name:
+        - bash
+        - openssl
+        - libssl-dev
+        - libssl-doc
+    update_cache: yes
+    state: latest
+
+- name: Install common server packages
+  apt:
+    name:
+        - build-essential
+        - htop
+        - vim
+        - git
+        - unzip
+        - curl
+        - language-pack-en
+    state: present

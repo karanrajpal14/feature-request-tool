@@ -1,0 +1,7 @@
+---
+
+# server name for nginx
+host_name: "localhost"
+
+# port to forward requests to
+port_no: "5000"

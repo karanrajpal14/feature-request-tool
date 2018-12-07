@@ -1,0 +1,7 @@
+---
+
+# port to forward requests to
+port_no: "5000"
+
+# application entry point
+wsgi: "app"

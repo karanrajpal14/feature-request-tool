@@ -1,0 +1,6 @@
+---
+
+virtualenv_path: "{{ home_path }}/venv"
+requirements_file: "{{ project_path }}/requirements.txt"
+python_path: "{{ virtualenv_path }}/bin/python3.6"
+pip_path: "{{ virtualenv_path }}/bin/pip"
