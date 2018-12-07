@@ -97,7 +97,7 @@ def feature_api_endpoint(id=None):
 """ Helper Methods """
 
 
-
+@app.cli.command("addmockdata")
 def addMockData():
     features = []
     features.append(
