@@ -3,6 +3,7 @@ import json
 from datetime import date
 from tests.test_base import BaseTestCase, app, db
 from model import Feature
+import uuid
 
 MOCK_TITLE = "Title"
 MOCK_DESCRIPTION = "Description"
@@ -96,6 +97,38 @@ class IndexViewTests(BaseTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(type(decoded_json), type([]))
 
+    """Test AJAX DELETE call to delete a feature with a valid id"""
+
+    def test_delete_feature_api_endpoint_DELETE_valid_id(self):
+        new_feature = Feature(
+            title=MOCK_TITLE,
+            description=MOCK_DESCRIPTION,
+            client=MOCK_CLIENT,
+            priority=MOCK_PRIORITY,
+            product_area=MOCK_PRODUCT_AREA,
+            deadline=MOCK_DEADLINE,
+        )
+
+        db.session.add(new_feature)
+        db.session.commit()
+        assert new_feature in db.session
+
+        valid_id = new_feature.id
+        expected_response = "Deleted feature successfully".encode()
+
+        response = self.client.delete("/api/v1/feature/{}".format(valid_id))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.data, expected_response)
+
+    """Test AJAX delete call to delete a feature using an invalid id"""
+
+    def test_delete_feature_api_endpoint_DELETE_invaild_id(self):
+        invalid_id = uuid.uuid4()
+        expected_response = "Feature ID does not exist".encode()
+
+        response = self.client.delete("/api/v1/feature/{}".format(invalid_id))
+        self.assertEqual(response.status_code, 422)
+        self.assertEqual(response.data, expected_response)
 
 
 if __name__ == "__main__":
