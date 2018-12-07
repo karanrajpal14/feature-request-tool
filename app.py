@@ -44,7 +44,7 @@ def feature_api_endpoint(id=None):
 
         # verify if all fields are present in the schema
         if not payload:
-            return 'Feature request is empty. Please fill in all the fields.'
+            return "Feature request is empty. Please fill in all the fields."
 
         try:
             data = feature_schema.load(payload)
@@ -97,7 +97,47 @@ def create_db():
     app_context.config.from_object(conf)
     db.init_app(app_context)
     db.create_all(app=app_context)
+    addMockData()
     return "DB Created"
+
+
+def addMockData():
+    features = []
+    features.append(
+        Feature(
+            title="Welcome",
+            description="This is a Feature Request Tool. I built it using basic web technologies, Knockout JS and Flask.",
+            client="Client A",
+            priority=1,
+            product_area="Billing",
+            deadline=datetime.datetime.strptime("2018-03-17", "%Y-%m-%d").date(),
+        )
+    )
+    features.append(
+        Feature(
+            title="Use the form to add requests",
+            description="Add as many as you'd like.",
+            client="Client A",
+            priority=1,
+            product_area="Billing",
+            deadline=datetime.datetime.strptime("2018-03-17", "%Y-%m-%d").date(),
+        )
+    )
+    features.append(
+        Feature(
+            title="Look at the footer",
+            description="For more information about me and a link to the source code for this application. Play around with the application and I hope you like it.",
+            client="Client A",
+            priority=1,
+            product_area="Billing",
+            deadline=datetime.datetime.strptime("2018-03-17", "%Y-%m-%d").date(),
+        )
+    )
+
+    for feature in features:
+        db.session.add(feature)
+
+    db.session.commit()
 
 
 # Returns selectable priorities depending on selected client
