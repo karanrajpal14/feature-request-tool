@@ -162,7 +162,8 @@ let formModel = function () {
 
 getTodaysDate = () => {
 	let today = new Date()
-	return `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`
+	let currentMonthPadded = ('0' + (today.getMonth() + 1)).slice(-2)
+	return `${today.getFullYear()}-${currentMonthPadded}-${today.getDate()}`
 }
 
 let fm = new formModel();
