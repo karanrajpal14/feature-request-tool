@@ -113,7 +113,7 @@ let formModel = function () {
 					self.selected_client(undefined);
 					self.selected_priority(undefined);
 					self.selected_area(undefined);
-					self.deadline(null);
+					self.deadline(getTodaysDate());
 
 					self.title.isModified(false);
 					self.description.isModified(false);
